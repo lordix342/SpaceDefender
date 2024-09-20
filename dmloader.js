@@ -70,21 +70,27 @@ var CUSTOM_PARAMETERS = {
         var targetRatio = width / height;
         var actualRatio = innerWidth / innerHeight;
     
-    
-    
-        //Fit
-        if (actualRatio > targetRatio) {
-            width = innerHeight * targetRatio;
-            height = innerHeight;
-            app_container.style.marginLeft = ((innerWidth - width) / 2) + "px";
-            app_container.style.marginTop = "0px";
+        //Downscale fit
+        if (innerWidth < width || innerHeight < height) {
+            if (actualRatio > targetRatio) {
+                width = innerHeight * targetRatio;
+                height = innerHeight;
+                app_container.style.marginLeft = ((innerWidth - width) / 2) + "px";
+                app_container.style.marginTop = "0px";
+            }
+            else {
+                width = innerWidth;
+                height = innerWidth / targetRatio;
+                app_container.style.marginLeft = "0px";
+                app_container.style.marginTop = ((innerHeight - height) / 2) + "px";
+            }
         }
         else {
-            width = innerWidth;
-            height = innerWidth / targetRatio;
-            app_container.style.marginLeft = "0px";
+            app_container.style.marginLeft = ((innerWidth - width) / 2) + "px";
             app_container.style.marginTop = ((innerHeight - height) / 2) + "px";
         }
+    
+    
     
     
         var dpi = 1;
@@ -201,7 +207,7 @@ var FileLoader = {
 
 
 var EngineLoader = {
-    wasm_size: 2380829,
+    wasm_size: 2805492,
     wasmjs_size: 344148,
     asmjs_size: 5054514,
     wasm_instantiate_progress: 0,
